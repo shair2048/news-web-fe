@@ -1,6 +1,6 @@
 import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/ui/navbar-sv";
 
 const manropeSans = Manrope({
   variable: "--font-manrope-sans",
