@@ -1,25 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Search, User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "./navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./sheet";
 import { Button } from "./button";
 import { Input } from "./input";
 
-export default function NavbarClient({
+export default function Navbar({
   categories,
 }: {
   categories: { slug: string; name: string }[];
@@ -27,7 +19,7 @@ export default function NavbarClient({
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="flex items-center justify-between h-16 border-b border-gray-100 mx-auto px-4">
-        <div className="lg:hidden">
+        {/* <div className="lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <button className="p-2">
@@ -64,7 +56,7 @@ export default function NavbarClient({
               </div>
             </SheetContent>
           </Sheet>
-        </div>
+        </div> */}
 
         <div className="flex-shrink-0">
           <Link href="/" className="text-xl font-bold ">
