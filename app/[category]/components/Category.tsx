@@ -1,12 +1,7 @@
 "use client";
 
 import { Calendar, ChevronsLeft, ChevronsRight } from "lucide-react";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Pagination,
@@ -84,8 +79,7 @@ export default function Category({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4 text-sm">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />{" "}
-                      {featuredArticle.publishedAt}
+                      <Calendar className="w-4 h-4" /> {featuredArticle.publishedAt}
                     </span>
                   </div>
                 </div>
