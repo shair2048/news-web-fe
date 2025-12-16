@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${manropeSans.variable} ${interSans.variable}`}>
         <Header />
-        <main className="pt-25">{children}</main>
+        <main className="pt-20">{children}</main>
       </body>
     </html>
   );
