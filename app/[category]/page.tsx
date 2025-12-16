@@ -14,7 +14,8 @@ export default async function CategoryPage({
   const limit = 15;
 
   const res = await fetch(
-    `${NODE_URL}/api/categories/${category}/articles?page=${page}&limit=${limit}`
+    `${NODE_URL}/api/categories/${category}/articles?page=${page}&limit=${limit}`,
+    { cache: "no-store" }
   );
   const articles = await res.json();
 
