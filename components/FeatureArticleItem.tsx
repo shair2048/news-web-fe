@@ -6,6 +6,7 @@ import { AspectRatio } from "./ui/aspect-ratio";
 
 export default function FeatureArticleItem({
   featureArticle,
+  category,
 }: {
   featureArticle: {
     _id: object;
@@ -14,10 +15,14 @@ export default function FeatureArticleItem({
     imageUrl: string;
     publishedAt: string;
   };
+  category: string;
 }) {
   return (
     <Item variant="default" className="w-full h-full">
-      <Link href="#" className="group flex flex-col h-full w-full">
+      <Link
+        href={`/${category}/articles/${featureArticle._id}`}
+        className="group flex flex-col h-full w-full"
+      >
         <ItemMedia className=" relative w-full transition-opacity duration-200 group-hover:opacity-60">
           {featureArticle.imageUrl && (
             <AspectRatio ratio={16 / 7}>
