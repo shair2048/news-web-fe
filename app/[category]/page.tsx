@@ -22,6 +22,7 @@ export default async function CategoryPage({
   return (
     <Category
       articles={articles.data}
+      category={category}
       currentPage={articles.currentPage}
       totalPages={articles.totalPages}
     />
