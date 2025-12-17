@@ -50,16 +50,18 @@ export default function ArticleDetail({
         {articles.description}
       </p>
 
-      <AspectRatio ratio={16 / 9} className="my-6 md:my-8 bg-muted">
-        <Image
-          priority
-          fill={true}
-          src={articles.imageUrl}
-          alt={articles.title}
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 896px, 896px"
-        />
-      </AspectRatio>
+      {articles.imageUrl && (
+        <AspectRatio ratio={16 / 9} className="my-6 md:my-8 bg-muted">
+          <Image
+            priority
+            fill={true}
+            src={articles.imageUrl}
+            alt={articles.title}
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 896px, 896px"
+          />
+        </AspectRatio>
+      )}
 
       <div className="space-y-4">
         {articles.content.split("\n\n").map((paragraph, index) => (
