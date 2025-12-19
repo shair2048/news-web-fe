@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function SideArticleItem({
   sideArticles,
-  category,
+  categorySlug,
 }: {
   sideArticles: {
     _id: object;
@@ -12,15 +12,15 @@ export default function SideArticleItem({
     imageUrl: string;
     publishedAt: string;
   }[];
-  category: string;
+  categorySlug: string;
 }) {
   return sideArticles.map((sideArticle) => (
-    <Item variant="default" key={sideArticle._id.toString()} className="w-full h-full">
+    <Item variant="default" key={sideArticle._id.toString()} className="w-full h-full ">
       <Link
-        href={`/${category}/articles/${sideArticle._id}`}
+        href={`/${categorySlug}/articles/${sideArticle._id}`}
         className="group flex h-full w-full"
       >
-        <ItemContent className="flex flex-col gap-2 p-4 w-full">
+        <ItemContent className="flex flex-col gap-2 p-4">
           <ItemTitle className="text-lg text-black line-clamp-2 transition-all duration-200 group-hover:underline">
             {sideArticle.title}
           </ItemTitle>
