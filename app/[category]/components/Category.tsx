@@ -15,7 +15,7 @@ import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 export default function Category({
   articles,
-  category,
+  categorySlug,
   currentPage,
   totalPages,
 }: {
@@ -26,7 +26,7 @@ export default function Category({
     imageUrl: string;
     publishedAt: string;
   }[];
-  category: string;
+  categorySlug: string;
   currentPage: number;
   totalPages: number;
 }) {
@@ -59,15 +59,15 @@ export default function Category({
     <div className="space-y-4 p-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 auto-rows-min">
         <div className="bg-white md:col-span-2 md:row-span-3">
-          <FeatureArticleItem featureArticle={featureArticle} category={category} />
+          <FeatureArticleItem featureArticle={featureArticle} category={categorySlug} />
         </div>
 
         <div className="flex flex-col items-center justify-center text-white">
-          <SideArticleItem sideArticles={sideArticles} category={category} />
+          <SideArticleItem sideArticles={sideArticles} categorySlug={categorySlug} />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 auto-rows-min">
-        <OtherArticleItem otherArticles={otherArticles} category={category} />
+        <OtherArticleItem otherArticles={otherArticles} categorySlug={categorySlug} />
       </div>
 
       <div className="my-10">

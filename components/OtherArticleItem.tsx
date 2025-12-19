@@ -6,7 +6,7 @@ import { AspectRatio } from "./ui/aspect-ratio";
 
 export default function OtherArticleItem({
   otherArticles,
-  category,
+  categorySlug,
 }: {
   otherArticles: {
     _id: object;
@@ -15,12 +15,12 @@ export default function OtherArticleItem({
     imageUrl: string;
     publishedAt: string;
   }[];
-  category: string;
+  categorySlug: string;
 }) {
   return otherArticles.map((otherArticle) => (
     <Item variant="default" key={otherArticle._id.toString()} className="w-full h-full">
       <Link
-        href={`/${category}/articles/${otherArticle._id}`}
+        href={`/${categorySlug}/articles/${otherArticle._id}`}
         className="group flex flex-col h-full w-full"
       >
         <ItemMedia className="relative w-full transition-opacity duration-200 group-hover:opacity-60">
