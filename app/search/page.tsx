@@ -1,4 +1,4 @@
-import { NODE_URL } from "@/env.config";
+import { NEXT_PUBLIC_NODE_URL } from "@/env.config";
 import Search from "./components/Search";
 
 export default async function SearchPage({
@@ -11,7 +11,9 @@ export default async function SearchPage({
   const limit = 15;
 
   const res = await fetch(
-    `${NODE_URL}/api/search?q=${encodeURI(q)}&page=${currentPage}&limit=${limit}`,
+    `${NEXT_PUBLIC_NODE_URL}/api/search?q=${encodeURI(
+      q
+    )}&page=${currentPage}&limit=${limit}`,
     { cache: "no-store" }
   );
   const articles = await res.json();
