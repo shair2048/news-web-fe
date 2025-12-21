@@ -1,6 +1,5 @@
 import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/ui/header";
 
 const manropeSans = Manrope({
   variable: "--font-manrope-sans",
@@ -21,10 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manropeSans.variable} ${interSans.variable}`}>
-        <Header />
-        <main className="pt-25">{children}</main>
-      </body>
+      <body className={`${manropeSans.variable} ${interSans.variable}`}>{children}</body>
     </html>
   );
 }
