@@ -56,7 +56,10 @@ export default function Navbar({
           )}
 
           {open && (
-            <form onSubmit={handleSubmit} className="relative hidden md:block">
+            <form
+              onSubmit={handleSubmit}
+              className="relative hidden md:block cursor-pointer"
+            >
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
                 ref={inputRef}
@@ -69,7 +72,12 @@ export default function Navbar({
             </form>
           )}
 
-          <Button className="hidden md:flex items-center gap-2">Đăng nhập</Button>
+          <Button
+            className="hidden md:flex items-center gap-2 cursor-pointer"
+            onClick={() => router.push("/sign-in")}
+          >
+            Đăng nhập
+          </Button>
         </div>
       </div>
 
