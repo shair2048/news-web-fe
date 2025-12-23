@@ -44,7 +44,7 @@ export default function SignUpPage() {
           Đăng ký
         </Button>
         <Button variant="outline" className="w-full cursor-pointer">
-          Đăng nhập với Google
+          Tiếp tục với Google
         </Button>
         <CardAction className="flex w-full items-center justify-center">
           <span className="text-sm">Đã có tài khoản?</span>
