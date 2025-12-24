@@ -13,12 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
-export default function Category({
-  articles,
-  categorySlug,
-  currentPage,
-  totalPages,
-}: {
+interface CategoryProps {
   articles: {
     _id: object;
     title: string;
@@ -29,7 +24,14 @@ export default function Category({
   categorySlug: string;
   currentPage: number;
   totalPages: number;
-}) {
+}
+
+export default function Category({
+  articles,
+  categorySlug,
+  currentPage,
+  totalPages,
+}: CategoryProps) {
   const articlesWithImage = articles.filter((article) => article.imageUrl);
   const articlesWithoutImage = articles.filter((article) => !article.imageUrl);
 

@@ -7,12 +7,12 @@ export default async function HomePage() {
 
   const [latestArticleRes, categoriesRes] = await Promise.all([
     fetch(
-      `${NEXT_PUBLIC_NODE_URL}/api/articles/latest?days=${daysCount}&limit=${limitItems}&hasImage=true`,
+      `${NEXT_PUBLIC_NODE_URL}/articles/latest?days=${daysCount}&limit=${limitItems}&hasImage=true`,
       {
         cache: "no-store",
       }
     ),
-    fetch(`${NEXT_PUBLIC_NODE_URL}/api/categories/articles/preview`, {
+    fetch(`${NEXT_PUBLIC_NODE_URL}/categories/articles/preview`, {
       cache: "no-store",
     }),
   ]);

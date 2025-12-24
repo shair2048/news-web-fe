@@ -5,10 +5,7 @@ import OtherArticleItem from "@/components/OtherArticleItem";
 import SideArticleItem from "@/components/SideArticleItem";
 import Link from "next/link";
 
-export default function Home({
-  latestArticles,
-  articlesPreview,
-}: {
+interface HomeProps {
   latestArticles: {
     _id: object;
     title: string;
@@ -33,7 +30,9 @@ export default function Home({
       publishedAt: string;
     }[];
   }[];
-}) {
+}
+
+export default function Home({ latestArticles, articlesPreview }: HomeProps) {
   const featureArticles = latestArticles.slice(0, 4);
   const sideArticles = latestArticles.slice(4);
 

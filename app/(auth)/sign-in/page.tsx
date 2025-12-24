@@ -32,7 +32,7 @@ export default function SignInPage() {
     setError("");
 
     try {
-      const res = await fetch(`${NEXT_PUBLIC_NODE_URL}/api/auth/sign-in`, {
+      const res = await fetch(`${NEXT_PUBLIC_NODE_URL}/auth/sign-in`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
