@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_NODE_URL } from "@/env.config";
+import envConfig from "@/env.config";
 import Category from "./components/Category";
 
 export default async function CategoryPage({
@@ -14,7 +14,7 @@ export default async function CategoryPage({
   const limit = 15;
 
   const res = await fetch(
-    `${NEXT_PUBLIC_NODE_URL}/categories/${category}/articles?page=${page}&limit=${limit}`,
+    `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/categories/${category}/articles?page=${page}&limit=${limit}`,
     { cache: "no-store" }
   );
   const articles = await res.json();

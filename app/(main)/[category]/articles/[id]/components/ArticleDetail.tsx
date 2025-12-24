@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { NEXT_PUBLIC_NODE_URL } from "@/env.config";
+import envConfig from "@/env.config";
 import { BookmarkIcon, Loader2, ShareIcon } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -37,7 +37,7 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
   const fetchSummary = async () => {
     try {
       const res = await fetch(
-        `${NEXT_PUBLIC_NODE_URL}/articles/${article._id}/summarize`,
+        `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/articles/${article._id}/summarize`,
         {
           method: "POST",
           cache: "no-store",
