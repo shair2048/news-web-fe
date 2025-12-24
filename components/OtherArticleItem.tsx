@@ -4,10 +4,7 @@ import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "./ui/i
 import Link from "next/link";
 import { AspectRatio } from "./ui/aspect-ratio";
 
-export default function OtherArticleItem({
-  otherArticles,
-  categorySlug,
-}: {
+interface OtherArticleItemProps {
   otherArticles: {
     _id: object;
     title: string;
@@ -16,7 +13,12 @@ export default function OtherArticleItem({
     publishedAt: string;
   }[];
   categorySlug: string;
-}) {
+}
+
+export default function OtherArticleItem({
+  otherArticles,
+  categorySlug,
+}: OtherArticleItemProps) {
   return otherArticles.map((otherArticle) => (
     <Item variant="default" key={otherArticle._id.toString()} className="w-full h-full">
       <Link

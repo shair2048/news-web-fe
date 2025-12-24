@@ -2,15 +2,17 @@
 
 import { Button } from "@/components/ui/button";
 
+interface PaginationNumbersProps {
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
+
 export default function PaginationNumbers({
   totalPages,
   currentPage,
   onPageChange,
-}: {
-  totalPages: number;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-}) {
+}: PaginationNumbersProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (

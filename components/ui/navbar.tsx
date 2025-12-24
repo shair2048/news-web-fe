@@ -24,11 +24,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useMounted } from "@/hooks/use-mounted";
 
-export default function Navbar({
-  categories,
-}: {
+interface NavbarProps {
   categories: { slug: string; name: string }[];
-}) {
+}
+
+export default function Navbar({ categories }: NavbarProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");

@@ -8,9 +8,7 @@ import {
 } from "./ui/carousel";
 import Link from "next/link";
 
-export default function ArticleSlider({
-  articles,
-}: {
+interface ArticleSliderProps {
   articles: {
     _id: object;
     title: string;
@@ -23,7 +21,9 @@ export default function ArticleSlider({
       slug: string;
     };
   }[];
-}) {
+}
+
+export default function ArticleSlider({ articles }: ArticleSliderProps) {
   return (
     <Carousel>
       <CarouselContent>
