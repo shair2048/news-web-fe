@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_NODE_URL } from "@/env.config";
+import envConfig from "@/env.config";
 import Home from "./Home";
 
 export default async function HomePage() {
@@ -7,12 +7,12 @@ export default async function HomePage() {
 
   const [latestArticleRes, categoriesRes] = await Promise.all([
     fetch(
-      `${NEXT_PUBLIC_NODE_URL}/articles/latest?days=${daysCount}&limit=${limitItems}&hasImage=true`,
+      `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/articles/latest?days=${daysCount}&limit=${limitItems}&hasImage=true`,
       {
         cache: "no-store",
       }
     ),
-    fetch(`${NEXT_PUBLIC_NODE_URL}/categories/articles/preview`, {
+    fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/categories/articles/preview`, {
       cache: "no-store",
     }),
   ]);

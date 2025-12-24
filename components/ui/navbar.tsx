@@ -23,6 +23,7 @@ import {
 } from "./dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { useMounted } from "@/hooks/use-mounted";
+import envConfig from "@/env.config";
 
 interface NavbarProps {
   categories: { slug: string; name: string }[];
@@ -47,7 +48,7 @@ export default function Navbar({ categories }: NavbarProps) {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-out`, {
+      await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-out`, {
         method: "POST",
         credentials: "include",
       });
