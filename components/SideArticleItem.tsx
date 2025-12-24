@@ -1,10 +1,7 @@
 import { Item, ItemContent, ItemDescription, ItemTitle } from "./ui/item";
 import Link from "next/link";
 
-export default function SideArticleItem({
-  sideArticles,
-  categorySlug,
-}: {
+interface SideArticleItemProps {
   sideArticles: {
     _id: object;
     title: string;
@@ -13,7 +10,12 @@ export default function SideArticleItem({
     publishedAt: string;
   }[];
   categorySlug: string;
-}) {
+}
+
+export default function SideArticleItem({
+  sideArticles,
+  categorySlug,
+}: SideArticleItemProps) {
   return sideArticles.map((sideArticle) => (
     <Item variant="default" key={sideArticle._id.toString()} className="w-full h-full ">
       <Link

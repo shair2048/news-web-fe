@@ -4,10 +4,7 @@ import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "./ui/i
 import Link from "next/link";
 import { AspectRatio } from "./ui/aspect-ratio";
 
-export default function FeatureArticleItem({
-  featureArticle,
-  category,
-}: {
+interface FeatureArticleItemProps {
   featureArticle: {
     _id: object;
     title: string;
@@ -16,7 +13,12 @@ export default function FeatureArticleItem({
     publishedAt: string;
   };
   category: string;
-}) {
+}
+
+export default function FeatureArticleItem({
+  featureArticle,
+  category,
+}: FeatureArticleItemProps) {
   return (
     <Item variant="default" className="w-full h-full">
       <Link

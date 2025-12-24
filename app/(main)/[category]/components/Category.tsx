@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import PaginationNumbers from "@/components/ui/PaginationNumbers";
+import PaginationNumbers from "@/components/PaginationNumbers";
 import FeatureArticleItem from "@/components/FeatureArticleItem";
 import OtherArticleItem from "@/components/OtherArticleItem";
 import SideArticleItem from "@/components/SideArticleItem";
