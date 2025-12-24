@@ -47,7 +47,7 @@ export default function Navbar({
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/sign-out`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-out`, {
         method: "POST",
         credentials: "include",
       });

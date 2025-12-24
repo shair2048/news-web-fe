@@ -20,12 +20,7 @@ import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import PaginationNumbers from "@/components/ui/PaginationNumbers";
 import { useState } from "react";
 
-export default function Search({
-  keyword,
-  articles,
-  currentPage,
-  totalPages,
-}: {
+interface SearchProps {
   keyword: string;
   articles: {
     _id: object;
@@ -36,7 +31,14 @@ export default function Search({
   }[];
   currentPage: number;
   totalPages: number;
-}) {
+}
+
+export default function Search({
+  keyword,
+  articles,
+  currentPage,
+  totalPages,
+}: SearchProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 

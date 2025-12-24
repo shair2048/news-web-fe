@@ -13,9 +13,7 @@ import { BookmarkIcon, Loader2, ShareIcon } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-export default function ArticleDetail({
-  article,
-}: {
+interface ArticleDetailProps {
   article: {
     _id: object;
     title: string;
@@ -24,7 +22,9 @@ export default function ArticleDetail({
     imageUrl: string;
     publishedAt: string;
   };
-}) {
+}
+
+export default function ArticleDetail({ article }: ArticleDetailProps) {
   const [summary, setSummary] = useState<{
     status: string;
     text?: string;
@@ -37,7 +37,7 @@ export default function ArticleDetail({
   const fetchSummary = async () => {
     try {
       const res = await fetch(
-        `${NEXT_PUBLIC_NODE_URL}/api/articles/${article._id}/summarize`,
+        `${NEXT_PUBLIC_NODE_URL}/articles/${article._id}/summarize`,
         {
           method: "POST",
           cache: "no-store",

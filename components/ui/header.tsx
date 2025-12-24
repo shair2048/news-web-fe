@@ -2,7 +2,7 @@ import { NEXT_PUBLIC_NODE_URL } from "@/env.config";
 import Navbar from "./navbar";
 
 export default async function Header() {
-  const res = await fetch(`${NEXT_PUBLIC_NODE_URL}/api/categories`, {
+  const res = await fetch(`${NEXT_PUBLIC_NODE_URL}/categories`, {
     next: { revalidate: 60 },
   });
   const categories = await res.json();

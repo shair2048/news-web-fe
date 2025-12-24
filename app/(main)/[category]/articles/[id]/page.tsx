@@ -8,7 +8,7 @@ export default async function ArticleDetailPage({
 }) {
   const { id } = await params;
 
-  const res = await fetch(`${NEXT_PUBLIC_NODE_URL}/api/articles/${id}`);
+  const res = await fetch(`${NEXT_PUBLIC_NODE_URL}/articles/${id}`);
 
   const article = await res.json();
 
