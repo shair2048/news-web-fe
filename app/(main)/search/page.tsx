@@ -1,5 +1,5 @@
 import envConfig from "@/env.config";
-import Search from "./components/Search";
+import SearchResults from "./components/SearchResults";
 
 export default async function SearchPage({
   searchParams,
@@ -19,7 +19,7 @@ export default async function SearchPage({
   const articles = await res.json();
 
   return (
-    <Search
+    <SearchResults
       keyword={q}
       articles={articles.data}
       currentPage={articles.currentPage}
