@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Search } from "lucide-react";
+import { Bell, LogOut, Search } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -107,6 +107,10 @@ export default function Navbar({ categories }: NavbarProps) {
               />
             </form>
           )}
+
+          <Button variant="ghost" size="icon">
+            <Bell className="w-5 h-5" />
+          </Button>
 
           {user ? (
             // Logined in case -> show user avatar with dropdown
