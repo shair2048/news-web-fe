@@ -1,5 +1,5 @@
-import Register from "./components/Register";
+import RegisterForm from "./components/RegisterForm";
 
 export default async function RegisterPage() {
-  return <Register />;
+  return <RegisterForm />;
 }

@@ -16,9 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginBody, LoginBodyType } from "@/schema/validations/auth.schema";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import envConfig from "@/env.config";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function LoginForm() {
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const form = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
@@ -29,15 +31,27 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: LoginBodyType) {
-    await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-in`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    }).then((res) => res.json());
+    try {
+      const res = await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-in`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(values),
+      });
 
-    router.push("/");
+      const payload = await res.json();
+
+      if (res.ok) {
+        setUser(payload.data.user);
+
+        router.push("/");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Login failed", error);
+    }
   }
 
   return (
