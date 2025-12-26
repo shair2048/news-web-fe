@@ -23,6 +23,7 @@ import {
 } from "./dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import envConfig from "@/env.config";
+import { removeTokenCookie } from "@/actions/auth";
 
 interface NavbarProps {
   categories: { slug: string; name: string }[];
@@ -48,6 +49,8 @@ export default function Navbar({ categories }: NavbarProps) {
         method: "POST",
         credentials: "include",
       });
+
+      removeTokenCookie();
 
       logout();
 
