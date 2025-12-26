@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import FollowButton from "@/components/FollowButton";
 
 interface CategoryProps {
   articles: {
@@ -24,6 +25,9 @@ interface CategoryProps {
   categorySlug: string;
   currentPage: number;
   totalPages: number;
+  categoryName: string;
+  categoryId: object;
+  initialIsFollowed: boolean;
 }
 
 export default function Category({
@@ -31,6 +35,9 @@ export default function Category({
   categorySlug,
   currentPage,
   totalPages,
+  categoryName,
+  categoryId,
+  initialIsFollowed,
 }: CategoryProps) {
   const articlesWithImage = articles.filter((article) => article.imageUrl);
   const articlesWithoutImage = articles.filter((article) => !article.imageUrl);
@@ -59,6 +66,11 @@ export default function Category({
 
   return (
     <div className="space-y-4 p-10">
+      <div className="flex gap-4 items-center justify-between pb-6">
+        <h1 className="text-2xl md:text-3xl font-bold leading-tight">{categoryName}</h1>
+        <FollowButton categoryId={categoryId} initialIsFollowed={initialIsFollowed} />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 auto-rows-min">
         <div className="bg-white md:col-span-2 md:row-span-3">
           <FeatureArticleItem featureArticle={featureArticle} category={categorySlug} />

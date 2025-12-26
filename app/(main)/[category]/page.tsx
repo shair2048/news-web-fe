@@ -1,5 +1,6 @@
 import envConfig from "@/env.config";
 import Category from "./components/Category";
+import { cookies } from "next/headers";
 
 export default async function CategoryPage({
   params,
@@ -13,18 +14,54 @@ export default async function CategoryPage({
   const page = Number(pageParam) || 1;
   const limit = 15;
 
-  const res = await fetch(
+  const articleRes = await fetch(
     `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/categories/${category}/articles?page=${page}&limit=${limit}`,
     { cache: "no-store" }
   );
-  const articles = await res.json();
+
+  if (!articleRes.ok) {
+    return <div>Category not found</div>;
+  }
+
+  const payload = await articleRes.json();
+  const categoryId = payload.categoryId;
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  let isFollowed = false;
+
+  if (token && categoryId) {
+    try {
+      const followRes = await fetch(
+        `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/categories/follow/status/${categoryId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        }
+      );
+
+      if (followRes.ok) {
+        const followData = await followRes.json();
+        isFollowed = followData.isFollowed;
+      }
+    } catch (error) {
+      console.error("Error checking follow status: ", error);
+    }
+  }
 
   return (
     <Category
-      articles={articles.data}
+      articles={payload.data}
       categorySlug={category}
-      currentPage={articles.currentPage}
-      totalPages={articles.totalPages}
+      currentPage={payload.currentPage}
+      totalPages={payload.totalPages}
+      categoryName={payload.categoryName}
+      categoryId={categoryId}
+      initialIsFollowed={isFollowed}
     />
   );
 }
