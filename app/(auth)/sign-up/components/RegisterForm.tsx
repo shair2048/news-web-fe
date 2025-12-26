@@ -16,9 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterBody, RegisterBodyType } from "@/schema/validations/auth.schema";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import envConfig from "@/env.config";
+import { useAuthStore } from "@/store/useAuthStore";
 
-export default function Register() {
+export default function RegisterForm() {
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const form = useForm<RegisterBodyType>({
     resolver: zodResolver(RegisterBody),
@@ -31,15 +33,27 @@ export default function Register() {
   });
 
   async function onSubmit(values: RegisterBodyType) {
-    await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-up`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    }).then((res) => res.json());
+    try {
+      const res = await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-up`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(values),
+      });
 
-    router.push("/");
+      const payload = await res.json();
+
+      if (res.ok) {
+        setUser(payload.data.user);
+
+        router.push("/");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Register failed", error);
+    }
   }
 
   return (

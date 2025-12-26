@@ -22,7 +22,6 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { useMounted } from "@/hooks/use-mounted";
 import envConfig from "@/env.config";
 
 interface NavbarProps {
@@ -36,9 +35,6 @@ export default function Navbar({ categories }: NavbarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { user, logout } = useAuthStore();
-
-  // Handle Hydration Issue
-  const isMounted = useMounted();
 
   useEffect(() => {
     if (open) {
@@ -109,16 +105,17 @@ export default function Navbar({ categories }: NavbarProps) {
             </form>
           )}
 
-          {isMounted && user ? (
+          {user ? (
             // Logined in case -> show user avatar with dropdown
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-8 w-8 rounded-full cursor-pointer"
+                >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.image || ""} alt={user.name} />
-                    <AvatarFallback>
-                      {getInitials(user.name || user.email)}
-                    </AvatarFallback>
+                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -134,7 +131,7 @@ export default function Navbar({ categories }: NavbarProps) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={handleLogout}
-                  className="text-red-600 focus:text-red-600"
+                  className="text-red-600 focus:text-red-600 cursor-pointer"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Đăng xuất</span>
