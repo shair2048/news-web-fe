@@ -1,33 +1,20 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 
 interface User {
-  id: string;
+  _id: string;
   email: string;
-  name?: string;
+  name: string;
   image?: string;
 }
 
-interface AuthState {
+interface UserState {
   user: User | null;
-  isAuthenticated: boolean;
-  login: (userData: User) => void;
+  setUser: (user: User | null) => void;
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      isAuthenticated: false,
-
-      login: (userData) => set({ user: userData, isAuthenticated: true }),
-
-      logout: () => set({ user: null, isAuthenticated: false }),
-    }),
-    {
-      name: "auth-storage",
-      storage: createJSONStorage(() => localStorage),
-    }
-  )
-);
+export const useAuthStore = create<UserState>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+  logout: () => set({ user: null }),
+}));
