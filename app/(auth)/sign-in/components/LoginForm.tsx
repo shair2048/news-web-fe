@@ -17,6 +17,7 @@ import { LoginBody, LoginBodyType } from "@/schema/validations/auth.schema";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import envConfig from "@/env.config";
 import { useAuthStore } from "@/store/useAuthStore";
+import { setTokenCookie } from "@/actions/auth";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -37,13 +38,15 @@ export default function LoginForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(values),
       });
 
-      const payload = await res.json();
-
       if (res.ok) {
+        const payload = await res.json();
+
+        const token = payload.data.token;
+        await setTokenCookie(token);
+
         setUser(payload.data.user);
 
         router.push("/");
