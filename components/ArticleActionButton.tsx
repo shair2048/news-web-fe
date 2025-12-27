@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 import { BookmarkIcon, Share2 } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -23,7 +23,7 @@ export default function ArticleActionButton({
 
   const handleToggleBookmark = async () => {
     if (!isLoggedIn) {
-      alert("Vui lòng đăng nhập để lưu bài viết!");
+      alert("Cần đăng nhập để sử dụng tính năng này!");
       return;
     }
 
