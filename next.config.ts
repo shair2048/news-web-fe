@@ -3,19 +3,27 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "i1-vnexpress.vnecdn.net" },
-      { protocol: "https", hostname: "i1-thethao.vnecdn.net" },
-      { protocol: "https", hostname: "i1-kinhdoanh.vnecdn.net" },
-      { protocol: "https", hostname: "i1-giaitri.vnecdn.net" },
-      { protocol: "https", hostname: "i1-suckhoe.vnecdn.net" },
-      { protocol: "https", hostname: "i1-dulich.vnecdn.net" },
-
-      { protocol: "https", hostname: "vcdn1-vnexpress.vnecdn.net" },
-      { protocol: "https", hostname: "vcdn1-thethao.vnecdn.net" },
-      { protocol: "https", hostname: "vcdn1-kinhdoanh.vnecdn.net" },
-      { protocol: "https", hostname: "vcdn1-giaitri.vnecdn.net" },
-      { protocol: "https", hostname: "vcdn1-suckhoe.vnecdn.net" },
-      { protocol: "https", hostname: "vcdn1-dulich.vnecdn.net" },
+      { protocol: "https", hostname: "**.vnecdn.net" },
+      {
+        protocol: "https",
+        hostname: "**.vnexpress.net",
+      },
+      {
+        protocol: "https",
+        hostname: "**.tuoitre.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "**.vtcnews.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "**.vtc.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "**.vtc.com.vn",
+      },
     ],
   },
   devIndicators: false,
