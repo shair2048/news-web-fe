@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/useAuthStore";
-import envConfig from "@/env.config";
+import { toggleFollowAction } from "@/actions/follow.action";
 
 interface FollowButtonProps {
   categoryId: object;
@@ -22,7 +22,7 @@ export default function FollowButton({
 
   const handleToggleFollow = async () => {
     if (!isLoggedIn) {
-      alert("Vui lòng đăng nhập để theo dõi!");
+      alert("Cần đăng nhập để theo dõi!");
       return;
     }
 
@@ -32,18 +32,13 @@ export default function FollowButton({
     setFollowed(!followed);
 
     try {
-      const res = await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/categories/follow`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ categoryId }),
-        credentials: "include",
-      });
+      const result = await toggleFollowAction(categoryId as object);
 
-      const payload = await res.json();
-
-      if (!payload.success) {
+      if (!result.success) {
         setFollowed(previousState);
-        console.error("Error updating follow status");
+        console.error(result.message);
+      } else {
+        console.log("Follow toggled successfully");
       }
     } catch (error) {
       setFollowed(previousState);
