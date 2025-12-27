@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,19 +12,9 @@ import { Button } from "./button";
 import { Input } from "./input";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/useAuthStore";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import envConfig from "@/env.config";
-import { removeTokenCookie } from "@/actions/auth";
+
 import NotificationBellButton from "../NotificationBellButton";
+import UserMenu from "../UserMenu";
 
 interface NavbarProps {
   categories: { slug: string; name: string }[];
@@ -36,35 +26,11 @@ export default function Navbar({ categories }: NavbarProps) {
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { user, logout } = useAuthStore();
-
   useEffect(() => {
     if (open) {
       inputRef.current?.focus();
     }
   }, [open]);
-
-  const handleLogout = async () => {
-    try {
-      await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-out`, {
-        method: "POST",
-        credentials: "include",
-      });
-
-      removeTokenCookie();
-
-      logout();
-
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
-  };
-
-  const getInitials = (name?: string) => {
-    return name ? name.charAt(0).toUpperCase() : "U";
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,51 +73,9 @@ export default function Navbar({ categories }: NavbarProps) {
               />
             </form>
           )}
-
           <NotificationBellButton />
 
-          {user ? (
-            // Logined in case -> show user avatar with dropdown
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full cursor-pointer"
-                >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={user.image || ""} alt={user.name} />
-                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="start" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="text-red-600 focus:text-red-600 cursor-pointer"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Đăng xuất</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            // Not logged in case -> show Sign In button
-            <Button
-              className="hidden md:flex items-center gap-2 cursor-pointer"
-              onClick={() => router.push("/sign-in")}
-            >
-              Đăng nhập
-            </Button>
-          )}
+          <UserMenu />
         </div>
       </div>
 
