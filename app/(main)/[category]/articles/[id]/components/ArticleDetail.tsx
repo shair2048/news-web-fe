@@ -1,5 +1,6 @@
 "use client";
 
+import ArticleActionButton from "@/components/ArticleActionButton";
 import {
   Accordion,
   AccordionContent,
@@ -7,9 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import envConfig from "@/env.config";
-import { BookmarkIcon, Loader2, ShareIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -22,9 +22,13 @@ interface ArticleDetailProps {
     imageUrl: string;
     publishedAt: string;
   };
+  initialIsBookmarked: boolean;
 }
 
-export default function ArticleDetail({ article }: ArticleDetailProps) {
+export default function ArticleDetail({
+  article,
+  initialIsBookmarked,
+}: ArticleDetailProps) {
   const [summary, setSummary] = useState<{
     status: string;
     text?: string;
@@ -94,24 +98,10 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
       </h1>
 
       <div className="my-4 md:my-6">
-        <ToggleGroup type="multiple" variant="outline" spacing={2} size="sm">
-          <ToggleGroupItem
-            value="bookmark"
-            aria-label="Toggle bookmark"
-            className="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500 shadow-none cursor-pointer"
-          >
-            <BookmarkIcon />
-            Lưu
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="share"
-            aria-label="Toggle share"
-            className="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500 shadow-none cursor-pointer"
-          >
-            <ShareIcon />
-            Chia sẻ
-          </ToggleGroupItem>
-        </ToggleGroup>
+        <ArticleActionButton
+          articleId={article._id}
+          initialIsBookmarked={initialIsBookmarked}
+        />
       </div>
 
       <Accordion
