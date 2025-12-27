@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, LogOut, Search } from "lucide-react";
+import { LogOut, Search } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -24,6 +24,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import envConfig from "@/env.config";
 import { removeTokenCookie } from "@/actions/auth";
+import NotificationBellButton from "../NotificationBellButton";
 
 interface NavbarProps {
   categories: { slug: string; name: string }[];
@@ -90,7 +91,6 @@ export default function Navbar({ categories }: NavbarProps) {
               <Search className="w-5 h-5" />
             </Button>
           )}
-
           {open && (
             <form
               onSubmit={handleSubmit}
@@ -108,9 +108,7 @@ export default function Navbar({ categories }: NavbarProps) {
             </form>
           )}
 
-          <Button variant="ghost" size="icon">
-            <Bell className="w-5 h-5" />
-          </Button>
+          <NotificationBellButton />
 
           {user ? (
             // Logined in case -> show user avatar with dropdown
