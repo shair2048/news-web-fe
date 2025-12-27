@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 import { BookmarkIcon, Share2 } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
-import envConfig from "@/env.config";
+import { toggleBookmarkAction } from "@/actions/bookmark.action";
 
 interface ArticleActionButtonProps {
   articleId: object;
@@ -33,19 +33,13 @@ export default function ArticleActionButton({
     setBookmarked(!bookmarked);
 
     try {
-      const res = await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/articles/bookmark`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ articleId }),
-        credentials: "include",
-      });
+      const result = await toggleBookmarkAction(articleId as object);
 
-      const payload = await res.json();
-      console.log("Bookmark status:", bookmarked);
-
-      if (!payload.success) {
+      if (!result.success) {
         setBookmarked(previousState);
-        console.error("Error updating bookmark status");
+        console.error(result.message);
+      } else {
+        console.log("Bookmark toggled successfully");
       }
     } catch (error) {
       setBookmarked(previousState);
