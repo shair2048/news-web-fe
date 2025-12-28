@@ -45,11 +45,18 @@ export default function LoginForm() {
         const payload = await res.json();
 
         const token = payload.data.token;
+        const user = payload.data.user;
+
         await setTokenCookie(token);
 
-        setUser(payload.data.user);
+        setUser(user);
 
-        router.push("/");
+        if (user.role === "admin") {
+          router.push("/dashboard");
+        } else {
+          router.push("/");
+        }
+
         router.refresh();
       }
     } catch (error) {
