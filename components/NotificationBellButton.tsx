@@ -13,6 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import envConfig from "@/env.config";
 import { markNotificationAsRead } from "@/actions/notification";
+import { notificationFetcher } from "@/services/notification.service";
 
 interface Notification {
   _id: object;
@@ -30,20 +31,20 @@ interface Notification {
   };
 }
 
-interface NotificationAPIResponse {
-  notifications: Notification[];
-  unreadCount: number;
+interface NotificationBellButtonProps {
+  accessToken?: string;
 }
 
-const fetcher = (url: string) =>
-  fetch(url, { credentials: "include" }).then((res) => res.json());
-
-export default function NotificationBellButton() {
+export default function NotificationBellButton({
+  accessToken,
+}: NotificationBellButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data, isLoading, mutate } = useSWR<NotificationAPIResponse>(
-    `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/notifications`,
-    fetcher,
+  const { data, isLoading, mutate } = useSWR(
+    accessToken
+      ? [`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/notifications`, accessToken]
+      : null,
+    notificationFetcher,
     {
       refreshInterval: 30000,
       revalidateOnFocus: true,
@@ -72,15 +73,15 @@ export default function NotificationBellButton() {
           <Bell className="w-5 h-5" />
           {unreadCount > 0 && (
             <span className="absolute top-2 right-2 flex h-2.5 w-2.5 translate-x-1/2 -translate-y-1/2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
             </span>
           )}
         </Button>
       </PopoverTrigger>
 
       <PopoverContent className="w-80 p-0" align="end">
-        <div className="flex items-center justify-between px-4 py-2 border-b">
+        <div className="flex items-center justify-between border-b px-4 py-2">
           <h4 className="font-semibold">Thông báo</h4>
           {unreadCount > 0 && (
             <span className="text-xs text-muted-foreground">{unreadCount} chưa đọc</span>
@@ -93,8 +94,8 @@ export default function NotificationBellButton() {
               Đang tải...
             </div>
           ) : notifications.length === 0 ? (
-            <div className="p-8 text-center text-sm text-muted-foreground flex flex-col items-center gap-2">
-              <Bell className="w-8 h-8 opacity-20" />
+            <div className="flex flex-col items-center gap-2 p-8 text-center text-sm text-muted-foreground">
+              <Bell className="h-8 w-8 opacity-20" />
               <p>Không có thông báo mới</p>
             </div>
           ) : (
@@ -106,31 +107,24 @@ export default function NotificationBellButton() {
                   onClick={() =>
                     handleNotificationClick(notif._id.toString(), notif.isRead)
                   }
-                  className={`flex flex-col gap-1 p-4 text-sm hover:bg-muted transition-colors border-b last:border-0 ${
+                  className={`flex flex-col gap-1 border-b p-4 text-sm transition-colors last:border-0 hover:bg-muted ${
                     !notif.isRead ? "bg-blue-50/50 dark:bg-blue-900/10" : ""
                   }`}
                 >
-                  <div className="flex justify-between items-start gap-2">
-                    <span className="font-medium line-clamp-2">{notif.message}</span>
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="line-clamp-2 font-medium">{notif.message}</span>
                     {!notif.isRead && (
-                      <span className="h-2 w-2 rounded-full bg-blue-500 mt-1 flex-shrink-0" />
+                      <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-blue-500" />
                     )}
                   </div>
-
-                  {/* Render thông tin phụ */}
-                  {/* {notif.category && (
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {notif.category.name || notif.category.slug}
-                    </div>
-                  )} */}
                 </Link>
               ))}
             </div>
           )}
         </ScrollArea>
 
-        <div className="p-2 border-t text-center">
-          <Button variant="ghost" size="sm" className="w-full text-xs h-8">
+        <div className="border-t p-2 text-center">
+          <Button variant="ghost" size="sm" className="h-8 w-full text-xs">
             Xem tất cả
           </Button>
         </div>

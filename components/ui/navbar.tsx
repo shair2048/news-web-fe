@@ -18,9 +18,10 @@ import UserMenu from "../UserMenu";
 
 interface NavbarProps {
   categories: { slug: string; name: string }[];
+  accessToken?: string;
 }
 
-export default function Navbar({ categories }: NavbarProps) {
+export default function Navbar({ categories, accessToken }: NavbarProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -73,7 +74,7 @@ export default function Navbar({ categories }: NavbarProps) {
               />
             </form>
           )}
-          <NotificationBellButton />
+          <NotificationBellButton accessToken={accessToken} />
 
           <UserMenu />
         </div>
