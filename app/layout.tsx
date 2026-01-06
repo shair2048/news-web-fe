@@ -2,6 +2,7 @@ import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import { getUserInfoFromBackend } from "@/services/auth.service";
+import { Toaster } from "@/components/ui/sonner";
 
 const manropeSans = Manrope({
   variable: "--font-manrope-sans",
@@ -27,6 +28,7 @@ export default async function RootLayout({
       <body className={`${manropeSans.variable} ${interSans.variable}`}>
         <AuthProvider user={user}>
           <main>{children}</main>
+          <Toaster />
         </AuthProvider>
       </body>
     </html>
