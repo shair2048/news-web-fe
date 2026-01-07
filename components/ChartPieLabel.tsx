@@ -9,8 +9,6 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 
-export const description = "A pie chart with a label";
-
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -48,7 +46,9 @@ const chartConfig = {
 export function ChartPieLabel() {
   return (
     <div className="space-y-4">
-      <h1>Tỉ lệ các bài báo theo thể loại</h1>
+      <h1 className="text-md font-medium text-muted-foreground">
+        Tỉ lệ các bài báo theo thể loại
+      </h1>
       <ChartContainer
         config={chartConfig}
         className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
