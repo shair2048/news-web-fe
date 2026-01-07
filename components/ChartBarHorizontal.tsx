@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   ChartContainer,
@@ -9,48 +9,51 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 
-export const description = "A horizontal bar chart";
+interface SourceStat {
+  sourceName: string;
+  count: number;
+}
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
+interface ChartBarHorizontalProps {
+  data: SourceStat[];
+}
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
+  count: {
+    label: "Số bài báo",
+    color: "var(--chart-3)",
   },
 } satisfies ChartConfig;
 
-export function ChartBarHorizontal() {
+export function ChartBarHorizontal({ data }: ChartBarHorizontalProps) {
   return (
     <div className="space-y-4">
-      <h1>Thống kê các bài báo theo nguồn</h1>
+      <h1 className="text-md font-medium text-muted-foreground">
+        Thống kê các bài báo theo nguồn
+      </h1>
       <ChartContainer config={chartConfig}>
         <BarChart
           accessibilityLayer
-          data={chartData}
+          data={data}
           layout="vertical"
           margin={{
-            left: -20,
+            left: 0,
           }}
         >
-          <XAxis type="number" dataKey="desktop" hide />
+          <CartesianGrid horizontal={false} />
+          <XAxis type="number" dataKey="count" hide />
           <YAxis
-            dataKey="month"
+            dataKey="sourceName"
             type="category"
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
+            width={80}
+            tickFormatter={(value) => value}
+            className="text-sm font-regular"
           />
           <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-          <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} />
+          <Bar dataKey="count" fill="var(--color-count)" radius={4} barSize={50} />
         </BarChart>
       </ChartContainer>
     </div>

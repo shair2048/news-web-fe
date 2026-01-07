@@ -11,7 +11,7 @@ export default async function DashboardStats({
 }: DashboardStatsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-      <div className="rounded-xl border bg-card text-card-foreground p-6">
+      <div className="rounded-sm border bg-card text-card-foreground p-6">
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <p className="text-sm font-medium text-muted-foreground">Bài báo mới hôm nay</p>
           <span className="text-green-500 text-xs font-bold">+12%</span>
@@ -20,7 +20,7 @@ export default async function DashboardStats({
         <p className="text-xs text-muted-foreground mt-1">So với hôm qua</p>
       </div>
 
-      <div className="rounded-xl border bg-card text-card-foreground p-6">
+      <div className="rounded-sm border bg-card text-card-foreground p-6">
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <p className="text-sm font-medium text-muted-foreground">Người dùng mới</p>
         </div>
@@ -28,7 +28,7 @@ export default async function DashboardStats({
         <p className="text-xs text-muted-foreground mt-1">Hoạt động tích cực</p>
       </div>
 
-      <div className="rounded-xl border bg-card text-card-foreground p-6">
+      <div className="rounded-sm border bg-card text-card-foreground p-6">
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
           <p className="text-sm font-medium text-muted-foreground">
             Bài báo đã tóm tắt hôm nay
