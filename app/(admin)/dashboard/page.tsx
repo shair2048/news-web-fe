@@ -1,5 +1,5 @@
 import { ChartBarHorizontal } from "@/components/ChartBarHorizontal";
-import { ChartPieLabel } from "@/components/ChartPieLabel";
+import { ChartPieInteractive } from "@/components/ChartPieInteractive";
 import DashboardStats from "@/components/DashboardStats";
 import envConfig from "@/env.config";
 import { cookies } from "next/headers";
@@ -11,6 +11,7 @@ export default async function DashboardPage() {
   let newUsersTodayNumber = 0;
   let summarizedArticlesNumber = 0;
   let articlesBySource = [];
+  let categoriesStats = [];
 
   if (token) {
     try {
@@ -19,6 +20,7 @@ export default async function DashboardPage() {
         newUsersTodayRes,
         summarizedArticlesRes,
         articlesBySourceStatsRes,
+        categoriesStatsRes,
       ] = await Promise.all([
         fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/articles/stats/crawled-articles`, {
           method: "GET",
@@ -58,6 +60,15 @@ export default async function DashboardPage() {
           },
           cache: "no-store",
         }),
+
+        fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/categories/stats/articles-percent`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        }),
       ]);
 
       if (crawledArticlesRes.ok) {
@@ -78,6 +89,11 @@ export default async function DashboardPage() {
         const payload = await articlesBySourceStatsRes.json();
         articlesBySource = payload.data;
       }
+
+      if (categoriesStatsRes.ok) {
+        const payload = await categoriesStatsRes.json();
+        categoriesStats = payload.data;
+      }
     } catch (error) {
       console.error("Error checking bookmark status: ", error);
     }
@@ -93,7 +109,7 @@ export default async function DashboardPage() {
           <ChartBarHorizontal data={articlesBySource} />
         </div>
         <div className="bg-primary-foreground p-4 rounded-sm">
-          <ChartPieLabel />
+          <ChartPieInteractive data={categoriesStats} />
         </div>
       </div>
     </div>
