@@ -40,11 +40,10 @@ export default function Category({
   initialIsFollowed,
 }: CategoryProps) {
   const articlesWithImage = articles.filter((article) => article.imageUrl);
-  const articlesWithoutImage = articles.filter((article) => !article.imageUrl);
 
   const featureArticle = articlesWithImage[0];
 
-  const sideArticles = articlesWithoutImage.slice(0, 3);
+  const sideArticles = articlesWithImage.slice(1, 4);
 
   const otherArticles = articles.filter(
     (article) =>
