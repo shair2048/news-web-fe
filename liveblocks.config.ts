@@ -22,6 +22,7 @@ declare global {
         name: string;
         avatar?: string;
         role?: string;
+        isGuest?: boolean;
       };
     };
 

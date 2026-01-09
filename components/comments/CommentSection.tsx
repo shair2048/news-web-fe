@@ -2,6 +2,7 @@
 
 import { useThreads } from "@liveblocks/react/suspense";
 import { Composer, Thread } from "@liveblocks/react-ui";
+import { ComposerWrapper } from "../ComposerWrapper";
 
 export function CommentSection() {
   const { threads } = useThreads();
@@ -16,7 +17,9 @@ export function CommentSection() {
           showAttachments={false}
         />
       ))}
-      <Composer showAttachments={false} />
+      <ComposerWrapper>
+        <Composer showAttachments={false} />
+      </ComposerWrapper>
     </div>
   );
 }

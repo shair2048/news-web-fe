@@ -8,10 +8,6 @@ export async function authLiveblocksAction(room: string) {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  if (!token) {
-    throw new Error("Unauthorized: No token found");
-  }
-
   try {
     const result = await liveblocksService.authenticate(room, token);
     return result;
@@ -24,19 +20,8 @@ export async function authLiveblocksAction(room: string) {
 }
 
 export async function resolveUsersAction(userIds: string[]): Promise<ResolvedUser[]> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
-  if (!token) {
-    console.error("No token found for resolveUsers");
-    return userIds.map(() => ({
-      name: "Anonymous",
-      avatar: "",
-    }));
-  }
-
   try {
-    const users = await liveblocksService.resolveUsers(userIds, token);
+    const users = await liveblocksService.resolveUsers(userIds);
 
     return users.map((user: { name?: string; avatar?: string }) => ({
       name: user.name || "Anonymous",
