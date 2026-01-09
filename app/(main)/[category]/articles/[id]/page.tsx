@@ -1,6 +1,8 @@
 import envConfig from "@/env.config";
 import ArticleDetail from "./components/ArticleDetail";
 import { cookies } from "next/headers";
+import { Room } from "@/components/comments/Room";
+import { CommentSection } from "@/components/comments/CommentSection";
 
 export default async function ArticleDetailPage({
   params,
@@ -43,5 +45,12 @@ export default async function ArticleDetailPage({
     }
   }
 
-  return <ArticleDetail article={article} initialIsBookmarked={isBookmarked} />;
+  return (
+    <div className="py-8 md:py-14 px-4 sm:px-6 max-w-4xl mx-auto space-y-20">
+      <ArticleDetail article={article} initialIsBookmarked={isBookmarked} />
+      <Room roomId={`article-${id}`}>
+        <CommentSection />
+      </Room>
+    </div>
+  );
 }
