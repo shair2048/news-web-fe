@@ -9,9 +9,14 @@ export function CommentSection() {
   return (
     <div>
       {threads.map((thread) => (
-        <Thread key={thread.id} thread={thread} />
+        <Thread
+          key={thread.id}
+          thread={thread}
+          showResolveAction={false}
+          showAttachments={false}
+        />
       ))}
-      <Composer />
+      <Composer showAttachments={false} />
     </div>
   );
 }
