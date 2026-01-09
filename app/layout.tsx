@@ -3,6 +3,7 @@ import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import { getUserInfoFromBackend } from "@/services/auth.service";
 import { Toaster } from "@/components/ui/sonner";
+import "@liveblocks/react-ui/styles.css";
 
 const manropeSans = Manrope({
   variable: "--font-manrope-sans",

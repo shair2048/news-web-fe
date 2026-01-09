@@ -124,3 +124,10 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+#liveblocks-badge {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

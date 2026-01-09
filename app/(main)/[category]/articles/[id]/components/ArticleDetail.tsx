@@ -88,7 +88,7 @@ export default function ArticleDetail({
   };
 
   return (
-    <div className="py-8 md:py-14 px-4 sm:px-6 max-w-4xl mx-auto">
+    <div>
       <p className="text-xs sm:text-sm text-muted-foreground mb-2">
         {article.publishedAt}
       </p>
