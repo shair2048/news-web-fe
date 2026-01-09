@@ -1,13 +1,18 @@
 import envConfig from "@/env.config";
 
 export const liveblocksService = {
-  authenticate: async (room: string, token: string) => {
+  authenticate: async (room: string, token?: string) => {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+    };
+
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     const res = await fetch(`${envConfig.NEXT_PUBLIC_API_ENDPOINT}/liveblocks/auth`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: headers,
       body: JSON.stringify({ room }),
     });
 
@@ -18,14 +23,13 @@ export const liveblocksService = {
 
     return res.json();
   },
-  resolveUsers: async (userIds: string[], token: string) => {
+  resolveUsers: async (userIds: string[]) => {
     const res = await fetch(
       `${envConfig.NEXT_PUBLIC_API_ENDPOINT}/liveblocks/resolve-users`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ userIds }),
       }
