@@ -1,6 +1,7 @@
 import envConfig from "@/env.config";
 import Navbar from "./navbar";
 import { cookies } from "next/headers";
+import { getUserInfoFromBackend } from "@/services/auth.service";
 
 export default async function Header() {
   const cookieStore = await cookies();
@@ -11,5 +12,7 @@ export default async function Header() {
   });
   const categories = await res.json();
 
-  return <Navbar categories={categories.data} accessToken={token} />;
+  const user = await getUserInfoFromBackend();
+
+  return <Navbar categories={categories.data} accessToken={token} user={user} />;
 }

@@ -15,13 +15,15 @@ import { useRouter } from "next/navigation";
 
 import NotificationBellButton from "../NotificationBellButton";
 import UserMenu from "../UserMenu";
+import { User } from "@/types/user.type";
 
 interface NavbarProps {
   categories: { slug: string; name: string }[];
   accessToken?: string;
+  user: User;
 }
 
-export default function Navbar({ categories, accessToken }: NavbarProps) {
+export default function Navbar({ categories, accessToken, user }: NavbarProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -47,7 +49,7 @@ export default function Navbar({ categories, accessToken }: NavbarProps) {
       <div className="flex items-center justify-between h-16 border-b border-gray-100 mx-auto px-4">
         <div className="flex-shrink-0">
           <Link href="/" className="text-xl font-bold ">
-            news
+            NewsMind
           </Link>
         </div>
 
@@ -76,7 +78,7 @@ export default function Navbar({ categories, accessToken }: NavbarProps) {
           )}
           <NotificationBellButton accessToken={accessToken} />
 
-          <UserMenu />
+          <UserMenu currentUser={user} />
         </div>
       </div>
 
