@@ -12,13 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarImage } from "./ui/avatar";
 import { BookmarkCheck, LogOut } from "lucide-react";
+import { User } from "@/types/user.type";
 
-export default function UserMenu() {
+export default function UserMenu({ currentUser }: { currentUser: User | null }) {
   const router = useRouter();
 
-  const { user, logout } = useAuthStore();
+  const { user: clientUser, logout } = useAuthStore();
+
+  const userToRender = currentUser || clientUser;
 
   const handleBookmarkNavigate = () => {
     router.push("/bookmarked");
@@ -42,25 +45,23 @@ export default function UserMenu() {
     }
   };
 
-  const getInitials = (name?: string) => {
-    return name ? name.charAt(0).toUpperCase() : "U";
-  };
-
-  return user ? (
+  return userToRender ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full cursor-pointer">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.image || ""} alt={user.name} />
-            <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+            <AvatarImage src={userToRender.avatar || ""} alt={userToRender.name} />
+            {/* <AvatarFallback>{getInitials(userToRender.name)}</AvatarFallback> */}
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+            <p className="text-sm font-medium leading-none">{userToRender.name}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {userToRender.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

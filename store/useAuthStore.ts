@@ -1,12 +1,5 @@
+import { User } from "@/types/user.type";
 import { create } from "zustand";
-
-interface User {
-  _id: string;
-  email: string;
-  name: string;
-  role: "user" | "admin";
-  image?: string;
-}
 
 interface UserState {
   user: User | null;

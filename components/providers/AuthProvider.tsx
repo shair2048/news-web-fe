@@ -1,15 +1,8 @@
 "use client";
 
 import { useAuthStore } from "@/store/useAuthStore";
+import { User } from "@/types/user.type";
 import { useEffect } from "react";
-
-interface User {
-  _id: string;
-  email: string;
-  name: string;
-  role: "user" | "admin";
-  image?: string;
-}
 
 export default function AuthProvider({
   user,
