@@ -46,11 +46,16 @@ export default async function ArticleDetailPage({
   }
 
   return (
-    <div className="py-8 md:py-14 px-4 sm:px-6 max-w-4xl mx-auto space-y-20">
+    <div className="py-8 md:py-14 px-4 sm:px-6 max-w-4xl mx-auto space-y-15">
       <ArticleDetail article={article} initialIsBookmarked={isBookmarked} />
-      <Room roomId={`article-${id}`}>
-        <CommentSection />
-      </Room>
+      <div className="space-y-4">
+        <h2 className="text-sm sm:text-lg md:text-xl font-bold leading-tight">
+          Bình luận
+        </h2>
+        <Room roomId={`article-${id}`}>
+          <CommentSection />
+        </Room>
+      </div>
     </div>
   );
 }

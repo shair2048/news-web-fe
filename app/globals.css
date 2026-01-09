@@ -131,3 +131,26 @@ body {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+/* 1. Replies */
+.lb-thread .lb-comment:not(:first-child) {
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+/* Tree view for replies */
+.lb-thread .lb-comment:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #e5e7eb;
+  border-radius: 99px;
+}
+
+.lb-thread .lb-composer {
+  margin-left: 1.5rem;
+}
