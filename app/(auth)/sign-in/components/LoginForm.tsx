@@ -115,9 +115,9 @@ export default function LoginForm() {
         <Button type="submit" form="login-form" className="w-full cursor-pointer">
           Đăng nhập
         </Button>
-        <Button variant="outline" className="w-full cursor-pointer">
+        {/* <Button variant="outline" className="w-full cursor-pointer">
           Đăng nhập với Google
-        </Button>
+        </Button> */}
         <CardAction className="flex w-full items-center justify-center">
           <span className="text-sm">Chưa có tài khoản?</span>
           <Button

@@ -20,14 +20,7 @@ import {
 } from "@/components/ui/sidebar";
 import envConfig from "@/env.config";
 import { useAuthStore } from "@/store/useAuthStore";
-import {
-  ChevronUp,
-  Home,
-  MessagesSquare,
-  Settings,
-  User2,
-  UsersRound,
-} from "lucide-react";
+import { ChevronUp, Home, User2, UsersRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const items = [
@@ -41,16 +34,16 @@ const items = [
     url: "/dashboard/users",
     icon: UsersRound,
   },
-  {
-    title: "Quản lý bình luận",
-    url: "#",
-    icon: MessagesSquare,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+  // {
+  //   title: "Quản lý bình luận",
+  //   url: "#",
+  //   icon: MessagesSquare,
+  // },
+  // {
+  //   title: "Settings",
+  //   url: "#",
+  //   icon: Settings,
+  // },
 ];
 
 export default function AppSidebar() {
