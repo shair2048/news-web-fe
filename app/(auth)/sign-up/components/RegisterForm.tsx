@@ -145,9 +145,9 @@ export default function RegisterForm() {
         <Button type="submit" form="register-form" className="w-full cursor-pointer">
           Đăng ký
         </Button>
-        <Button variant="outline" className="w-full cursor-pointer">
+        {/* <Button variant="outline" className="w-full cursor-pointer">
           Tiếp tục với Google
-        </Button>
+        </Button> */}
         <CardAction className="flex w-full items-center justify-center">
           <span className="text-sm">Đã có tài khoản?</span>
           <Button
